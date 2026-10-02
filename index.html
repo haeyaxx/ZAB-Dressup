@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ZAB DRESSUP</title>
+    <link rel="icon" type="image/x-icon" href="./img/favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: rgb(255, 253, 244);
+            font-family: "Schoolbell", cursive;
+        }
+
+        .background-button {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            font-family: "Schoolbell", cursive;
+            font-size: 18px;
+            color: white;
+            background: #ff6b95;
+            border: 4px solid #b55d79;
+            border-radius: 3px;
+            padding: 7px 12px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .background-button:hover {
+            background: #f4a8c8;
+        }
+
+        .titulo {
+            width: 600px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 25px;
+            width: 100%;
+        }
+
+        .menu {
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category {
+            width: 100%;
+        }
+
+        .category-button {
+            width: 100%;
+            font-family: "Schoolbell", cursive;
+            font-size: 20px;
+            color: white;
+            background: #ff6b95;
+            border: 4px solid #b55d79;
+            border-radius: 3px;
+            padding: 8px 18px;
+            cursor: pointer;
+        }
+
+        .category-button:hover {
+            background: #f4a8c8;
+        }
+
+        .options {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 8px 0;
+        }
+
+        .options.active {
+            display: flex;
+        }
+
+        .option-button {
+            width: 85px;
+            height: 85px;
+            background: white;
+            border: 4px solid #b2b2b2;
+            border-radius: 3px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .option-button:hover {
+            transform: scale(1.08);
+        }
+
+        .option-button.selected {
+            border: 4px solid black;
+            background: #ffdce7;
+        }
+
+        .option-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .character-container {
+            position: relative;
+            width: 600px;
+            height: 650px;
+            background-image: url("./img/fondo.png");
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .character-container img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            left: 0;
+            top: 0;
+        }
+
+        #character {
+            z-index: 1;
+        }
+
+        #pantalones {
+            z-index: 2;
+        }
+
+        #cami {
+            z-index: 3;
+        }
+
+        #Cara {
+            z-index: 4;
+        }
+
+        #Zapatillas {
+            z-index: 5;
+        }
+
+        #comp {
+            z-index: 6;
+        }
+
+        #compiz {
+            z-index: 7;
+        }
+
+        #collar {
+            z-index: 8;
+        }
+
+        #Cara[src=""],
+        #cami[src=""],
+        #pantalones[src=""],
+        #Zapatillas[src=""],
+        #comp[src=""],
+        #compiz[src=""],
+        #collar[src=""] {
+            visibility: hidden;
+        }
+
+        @media (max-width: 950px) {
+
+            .game-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu {
+                width: 100%;
+                max-width: 600px;
+            }
+
+            .category-button {
+                width: 100%;
+            }
+
+            .character-container {
+                width: 100%;
+                max-width: 600px;
+                height: auto;
+                aspect-ratio: 600 / 650;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .titulo {
+                width: 90%;
+                max-width: 600px;
+                height: auto;
+            }
+
+            .category-button {
+                font-size: 16px;
+                padding: 6px 12px;
+            }
+
+            .option-button {
+                width: 75px;
+                height: 75px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <button class="background-button" onclick="changeBackground()">
+        Fondo
+    </button>
+
+    <div class="game">
+
+        <img class="titulo" src="./img/titulo.png" alt="ZAB DRESSUP">
+
+        <div class="game-content">
+
+            <div class="menu">
+
+                <div class="category">
+
+                    <button class="category-button" onclick="showOptions('character')">
+                        Cuerpo
+                    </button>
+
+                    <div id="character-options" class="options"></div>
+
+                </div>
+
+                <div class="category">
+
+                    <button class="category-button" onclick="showOptions('Cara')">
+                        Cara
+                    </button>
+
+                    <div id="Cara-options" class="options"></div>
+
+                </div>
+
+                <div class="category">
+
+                    <button class="category-button" onclick="showOptions('cami')">
+                        Camiseta
+                    </button>
+
+                    <div id="cami-options" class="options"></div>
+
+                </div>
+
+                <div class="category">
+
+                    <button class="category-button" onclick="showOptions('pantalones')">
+                        Pantalones
+                    </button>
+
+                    <div id="pantalones-options" class="options"></div>
+
+                </div>
+
+                <div class="category">
+
+                    <button class="category-button" onclick="showOptions('Zapatillas')">
+                        Zapatillas
+                    </button>
+
+                    <div id="Zapatillas-options" class="options"></div>
+
+                </div>
+
+                <div class="category">
+
+                    <button class="category-button" onclick="showOptions('comp')">
+                        Complementos
+                    </button>
+
+                    <div id="comp-options" class="options"></div>
+
+                </div>
+
+                <div class="category">
+
+                    <button class="category-button" onclick="showOptions('compiz')">
+                        Complementos izquierda
+                    </button>
+
+                    <div id="compiz-options" class="options"></div>
+
+                </div>
+
+                <div class="category">
+
+                    <button class="category-button" onclick="showOptions('collar')">
+                        Collares
+                    </button>
+
+                    <div id="collar-options" class="options"></div>
+
+                </div>
+
+            </div>
+
+            <div class="character-container">
+
+                <img id="character" src="./img/body.png">
+
+                <img id="Cara" src="">
+
+                <img id="cami" src="">
+
+                <img id="pantalones" src="">
+
+                <img id="Zapatillas" src="">
+
+                <img id="comp" src="">
+
+                <img id="compiz" src="">
+
+                <img id="collar" src="">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const clothing = {
+
+            character: [
+                "./img/body.png",
+                "./img/body2.png",
+                "./img/body3.png"
+            ],
+
+            Cara: [
+                "./img/ojos1.png",
+                "./img/ojos2.png",
+                "./img/ojos3.png",
+                "./img/ojos4.png",
+                "./img/ojos5.png",
+                "./img/ojos6.png"
+            ],
+
+            cami: [
+                "./img/cami1.png",
+                "./img/cami2.png",
+                "./img/cami3.png"
+            ],
+
+            pantalones: [
+                "./img/pant1.png",
+                "./img/pant2.png",
+                "./img/pant3.png"
+            ],
+
+            Zapatillas: [
+                "./img/zap1.png",
+                "./img/zap2.png",
+                "./img/zap3.png"
+            ],
+
+            comp: [
+                "./img/comp1.png",
+                "./img/comp2.png",
+                "./img/comp3.png",
+                "./img/comp4.png",
+                "./img/comp5.png",
+                "./img/comp6.png"
+            ],
+
+            compiz: [
+                "./img/comp1_iz.png",
+                "./img/comp2_iz.png",
+                "./img/comp3_iz.png",
+                "./img/comp4_iz.png",
+                "./img/comp5_iz.png",
+                "./img/com6_iz.png"
+            ],
+
+            collar: [
+                "./img/coll1.png",
+                "./img/coll2.png",
+                "./img/coll3.png"
+            ]
+
+        };
+
+        const selectedItems = {};
+
+        var backgroundColors = [
+            "rgb(255, 253, 244)",
+            "#FFDCE7",
+            "#DDF4FF",
+            "#E5F5D5",
+            "#FFF0C7",
+            "#E8DFFF"
+        ];
+
+        var backgroundNumber = 0;
+
+        function changeBackground() {
+
+            backgroundNumber++;
+
+            if (backgroundNumber >= backgroundColors.length) {
+                backgroundNumber = 0;
+            }
+
+            document.body.style.background =
+                backgroundColors[backgroundNumber];
+
+        }
+
+        function showOptions(category) {
+
+            var options =
+                document.getElementById(category + "-options");
+
+            if (options.classList.contains("active")) {
+
+                options.classList.remove("active");
+
+                return;
+
+            }
+
+            var todos = document.querySelectorAll(".options");
+
+            for (var i = 0; i < todos.length; i++) {
+
+                todos[i].classList.remove("active");
+
+            }
+
+            options.innerHTML = "";
+
+            for (var i = 0; i < clothing[category].length; i++) {
+
+                var imagePath = clothing[category][i];
+
+                var optionButton =
+                    document.createElement("button");
+
+                optionButton.className = "option-button";
+
+                var img =
+                    document.createElement("img");
+
+                img.src = imagePath;
+
+                optionButton.appendChild(img);
+
+                if (selectedItems[category] == imagePath) {
+
+                    optionButton.classList.add("selected");
+
+                }
+
+                optionButton.onclick = function() {
+
+                    var imagen =
+                        this.querySelector("img").src;
+
+                    changeClothing(category, imagen);
+
+                    var botones =
+                        options.querySelectorAll(".option-button");
+
+                    for (var j = 0; j < botones.length; j++) {
+
+                        botones[j].classList.remove("selected");
+
+                    }
+
+                    this.classList.add("selected");
+
+                };
+
+                options.appendChild(optionButton);
+
+            }
+
+            options.classList.add("active");
+
+        }
+
+        function changeClothing(category, image) {
+
+            selectedItems[category] = image;
+
+            if (category == "character") {
+
+                document.getElementById("character").src = image;
+
+                cambiarPantalon();
+                cambiarCara();
+
+            }
+
+            else {
+
+                document.getElementById(category).src = image;
+
+            }
+
+            if (category == "pantalones") {
+
+                cambiarPantalon();
+
+            }
+
+            if (category == "Cara") {
+
+                cambiarCara();
+
+            }
+
+        }
+
+        function cambiarPantalon() {
+
+            var cuerpo =
+                document.getElementById("character");
+
+            var pantalon =
+                document.getElementById("pantalones");
+
+            if (!selectedItems.pantalones) {
+                return;
+            }
+
+            var pantalonActual =
+                selectedItems.pantalones;
+
+            if (pantalonActual.includes("pant1.png")) {
+
+                if (cuerpo.src.includes("body2.png")) {
+
+                    pantalon.src =
+                        "./img/pant1_body2_1.svg";
+
+                }
+
+                else if (cuerpo.src.includes("body3.png")) {
+
+                    pantalon.src =
+                        "./img/pant1_body2.svg";
+
+                }
+
+                else {
+
+                    pantalon.src =
+                        "./img/pant1.png";
+
+                }
+
+            }
+
+            else {
+
+                pantalon.src = pantalonActual;
+
+            }
+
+        }
+
+        function cambiarCara() {
+
+            var cuerpo =
+                document.getElementById("character");
+
+            var cara =
+                document.getElementById("Cara");
+
+            if (!selectedItems.Cara) {
+                return;
+            }
+
+            var caraActual =
+                selectedItems.Cara;
+
+            if (caraActual.includes("ojos3.png")) {
+
+                if (cuerpo.src.includes("body2.png")) {
+
+                    cara.src =
+                        "./img/ojos3_body2.svg";
+
+                }
+
+                else if (cuerpo.src.includes("body3.png")) {
+
+                    cara.src =
+                        "./img/ojos3_body3.svg";
+
+                }
+
+                else {
+
+                    cara.src =
+                        "./img/ojos3.png";
+
+                }
+
+            }
+
+            else {
+
+                cara.src = caraActual;
+
+            }
+
+        }
+
+        function actualizarRopa() {
+
+            cambiarPantalon();
+            cambiarCara();
+
+        }
+
+        showOptions("Cara");
+
+    </script>
+
+</body>
+
+</html>
