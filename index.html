@@ -11,7 +11,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
 
     <style>
 
@@ -21,109 +21,220 @@
 
         body {
             margin: 0;
-            background: rgb(255, 253, 244);
-            font-family: "Schoolbell", cursive;
+            padding: 28px 28px 80px 28px;
+            background: #d2ebff;
+            font-family: "Silkscreen", monospace;
+            color: #3d3d3d;
         }
 
-        .background-button {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            font-family: "Schoolbell", cursive;
-            font-size: 18px;
-            color: white;
-            background: #ff6b95;
-            border: 4px solid #b55d79;
-            border-radius: 3px;
-            padding: 7px 12px;
+        button {
+            font-family: inherit;
             cursor: pointer;
-            z-index: 100;
         }
 
-        .background-button:hover {
-            background: #f4a8c8;
+        .background {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
-        .titulo {
-            width: 600px;
-            height: auto;
-            object-fit: contain;
-            margin-bottom: 10px;
-        }
-
-        .game {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .game-content {
+        .desktop {
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            gap: 25px;
-            width: 100%;
+            gap: 28px;
+            max-width: 1500px;
+            margin: 0 auto;
         }
 
-        .menu {
-            width: 220px;
+        .window {
+            background: white;
+            border: 4px solid #1291f9;
+            border-radius: 5px;
+        }
+
+        .title-window {
+            width: 420px;
+        }
+
+        .paint-window {
+            flex: 1;
+            background: #efecdc;
+        }
+
+        .title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 8px 6px 14px;
+            background: #1291f9;
+            color: white;
+            font-size: 24px;
+        }
+
+        .window-buttons {
+            display: flex;
+            gap: 7px;
+        }
+
+        .window-button {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            background: #1291f9;
+            color: white;
+            border: 3px solid white;
+            font-size: 16px;
+            
+        }
+
+        .window-button.close {
+            background: #f72f2f;
+        }
+
+        .title-content {
+            padding: 18px;
+        }
+
+        .titulo {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .menu-bar {
+            display: flex;
+            gap: 26px;
+            padding: 6px 16px;
+            background: #c1b891;
+            color: white;
+            font-size: 20px;
+        }
+
+        .paint-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            padding: 16px;
+        }
+
+        .categories {
+            width: 210px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .category-button {
+            width: 100%;
+            padding: 11px 6px;
+            background: #efecdc;
+            color: #3d3d3d;
+            border: 4px solid #c1b891;
+            font-size: 19px;
+        }
+
+        .category-button:hover {
+            background: #e0dac0;
+        }
+
+        .category-button.active {
+            background: #c1b891;
+            color: white;
+        }
+
+        .body-colors {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .color-button {
+            flex: 1;
+            height: 52px;
+            border: 4px solid transparent;
+        }
+
+        .color-button:hover {
+            transform: scale(1.06);
+        }
+
+        .color-button.selected {
+            border: 4px solid #c1b891;
+        }
+
+        .green {
+            background: #a3ff4a;
+        }
+
+        .red {
+            background: #ff3131;
+        }
+
+        .gray {
+            background: #bab3a2;
+        }
+
+        .items {
+            width: 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
         }
 
-        .category {
+        .arrow-button {
             width: 100%;
+            padding: 2px 0 6px 0;
+            background: transparent;
+            color: #c1b891;
+            border: none;
+            font-size: 22px;
         }
 
-        .category-button {
-            width: 100%;
-            font-family: "Schoolbell", cursive;
-            font-size: 20px;
-            color: white;
-            background: #ff6b95;
-            border: 4px solid #b55d79;
-            border-radius: 3px;
-            padding: 8px 18px;
-            cursor: pointer;
+        .arrow-button:hover {
+            transform: scale(1.1);
         }
 
-        .category-button:hover {
-            background: #f4a8c8;
+        .arrow-up {
+            transform: rotate(180deg);
+        }
+
+        .arrow-up:hover {
+            transform: rotate(180deg) scale(1.1);
         }
 
         .options {
-            display: none;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
             width: 100%;
-            padding: 8px 0;
-        }
-
-        .options.active {
+            height: 388px;
+            overflow: hidden;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            scroll-behavior: smooth;
         }
 
         .option-button {
-            width: 85px;
-            height: 85px;
+            flex-shrink: 0;
+            width: 91px;
+            height: 91px;
+            padding: 4px;
             background: white;
-            border: 4px solid #b2b2b2;
-            border-radius: 3px;
-            padding: 5px;
-            cursor: pointer;
+            border: 4px solid #c1b891;
+            
         }
 
         .option-button:hover {
-            transform: scale(1.08);
+            transform: scale(1.06);
         }
 
         .option-button.selected {
-            border: 4px solid black;
-            background: #ffdce7;
+            border: 4px solid #c1b891;
+            background: #e0dac0;
         }
 
         .option-button img {
@@ -132,110 +243,125 @@
             object-fit: contain;
         }
 
+        .character-area {
+            flex: 1;
+        }
+
         .character-container {
             position: relative;
-            width: 600px;
-            height: 650px;
-            background-image: url("./img/fondo.png");
-            background-size: cover;
-            background-position: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            aspect-ratio: 600 / 650;
+            background: white;
+            border: 4px solid #c1b891;
             overflow: hidden;
         }
 
         .character-container img {
             position: absolute;
+            left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
             object-fit: contain;
-            left: 0;
-            top: 0;
         }
 
-        #character {
-            z-index: 1;
-        }
+        #character { z-index: 1; }
+        #pantalones { z-index: 2; }
+        #cami { z-index: 3; }
+        #Cara { z-index: 4; }
+        #Zapatillas { z-index: 5; }
+        #comp { z-index: 6; }
+        #compiz { z-index: 7; }
+        #collar { z-index: 8; }
 
-        #pantalones {
-            z-index: 2;
-        }
-
-        #cami {
-            z-index: 3;
-        }
-
-        #Cara {
-            z-index: 4;
-        }
-
-        #Zapatillas {
-            z-index: 5;
-        }
-
-        #comp {
-            z-index: 6;
-        }
-
-        #compiz {
-            z-index: 7;
-        }
-
-        #collar {
-            z-index: 8;
-        }
-
-        #Cara[src=""],
-        #cami[src=""],
-        #pantalones[src=""],
-        #Zapatillas[src=""],
-        #comp[src=""],
-        #compiz[src=""],
-        #collar[src=""] {
+        .character-container img[src=""] {
             visibility: hidden;
         }
 
-        @media (max-width: 950px) {
+        .taskbar {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            background: #1291f9;
+        }
 
-            .game-content {
+        .taskbar-start {
+            width: 10%;
+            min-width: 90px;
+            background: #a3ff4a;
+        }
+
+        .taskbar-clock {
+            width: 10%;
+            min-width: 90px;
+            background: #66c1ff;
+        }
+
+        @media (max-width: 1180px) {
+
+            .desktop {
                 flex-direction: column;
                 align-items: center;
             }
 
-            .menu {
+            .title-window {
                 width: 100%;
-                max-width: 600px;
+                max-width: 640px;
             }
 
-            .category-button {
+            .paint-window {
+                flex: none;
                 width: 100%;
+                max-width: 900px;
             }
-
-            .character-container {
-                width: 100%;
-                max-width: 600px;
-                height: auto;
-                aspect-ratio: 600 / 650;
-            }
-
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 760px) {
 
-            .titulo {
-                width: 90%;
-                max-width: 600px;
+            body {
+                padding: 14px 10px 70px 10px;
+            }
+
+            .paint-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .categories {
+                width: 100%;
+            }
+
+            .items {
+                width: 100%;
+            }
+
+            .arrow-button {
+                display: none;
+            }
+
+            .options {
                 height: auto;
+                overflow: visible;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
-            .category-button {
+            .character-area {
+                width: 100%;
+            }
+
+            .menu-bar {
+                flex-wrap: wrap;
+                gap: 12px;
                 font-size: 16px;
-                padding: 6px 12px;
             }
-
-            .option-button {
-                width: 75px;
-                height: 75px;
-            }
-
         }
 
     </style>
@@ -244,117 +370,99 @@
 
 <body>
 
-    <button class="background-button" onclick="changeBackground()">
-        Fondo
-    </button>
+    <svg class="background" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1600" height="900" fill="#d2ebff"/>
+        <g fill="white">
+            <ellipse cx="260" cy="150" rx="110" ry="34"/>
+            <ellipse cx="330" cy="125" rx="70" ry="30"/>
+            <ellipse cx="200" cy="130" rx="60" ry="26"/>
+            <ellipse cx="1200" cy="230" rx="130" ry="38"/>
+            <ellipse cx="1280" cy="200" rx="80" ry="32"/>
+            <ellipse cx="1130" cy="205" rx="70" ry="28"/>
+            <ellipse cx="760" cy="90" rx="90" ry="26"/>
+            <ellipse cx="820" cy="72" rx="55" ry="22"/>
+        </g>
+        <path d="M0 600 Q 400 470 800 550 T 1600 510 V900 H0 Z" fill="#8fe04a"/>
+        <path d="M0 760 Q 500 650 1000 725 T 1600 700 V900 H0 Z" fill="#6fcf3c"/>
+    </svg>
 
-    <div class="game">
+    <div class="desktop">
 
-        <img class="titulo" src="./img/titulo.png" alt="ZAB DRESSUP">
+        <div class="window title-window">
 
-        <div class="game-content">
-
-            <div class="menu">
-
-                <div class="category">
-
-                    <button class="category-button" onclick="showOptions('character')">
-                        Cuerpo
-                    </button>
-
-                    <div id="character-options" class="options"></div>
-
+            <div class="title-bar">
+                <span>Zab.exe</span>
+                <div class="window-buttons">
+                    <button class="window-button">_</button>
+                    <button class="window-button">□</button>
+                    <button class="window-button close">X</button>
                 </div>
-
-                <div class="category">
-
-                    <button class="category-button" onclick="showOptions('Cara')">
-                        Cara
-                    </button>
-
-                    <div id="Cara-options" class="options"></div>
-
-                </div>
-
-                <div class="category">
-
-                    <button class="category-button" onclick="showOptions('cami')">
-                        Camiseta
-                    </button>
-
-                    <div id="cami-options" class="options"></div>
-
-                </div>
-
-                <div class="category">
-
-                    <button class="category-button" onclick="showOptions('pantalones')">
-                        Pantalones
-                    </button>
-
-                    <div id="pantalones-options" class="options"></div>
-
-                </div>
-
-                <div class="category">
-
-                    <button class="category-button" onclick="showOptions('Zapatillas')">
-                        Zapatillas
-                    </button>
-
-                    <div id="Zapatillas-options" class="options"></div>
-
-                </div>
-
-                <div class="category">
-
-                    <button class="category-button" onclick="showOptions('comp')">
-                        Complementos
-                    </button>
-
-                    <div id="comp-options" class="options"></div>
-
-                </div>
-
-                <div class="category">
-
-                    <button class="category-button" onclick="showOptions('compiz')">
-                        Complementos izquierda
-                    </button>
-
-                    <div id="compiz-options" class="options"></div>
-
-                </div>
-
-                <div class="category">
-
-                    <button class="category-button" onclick="showOptions('collar')">
-                        Collares
-                    </button>
-
-                    <div id="collar-options" class="options"></div>
-
-                </div>
-
             </div>
 
-            <div class="character-container">
+            <div class="title-content">
+                <img class="titulo" src="./img/titulo.svg" alt="ZAB DRESSUP">
+            </div>
 
-                <img id="character" src="./img/body.png">
+        </div>
 
-                <img id="Cara" src="">
+        <div class="window paint-window">
 
-                <img id="cami" src="">
+            <div class="title-bar">
+                <span>:3 - Paint</span>
+                <div class="window-buttons">
+                    <button class="window-button">_</button>
+                    <button class="window-button">□</button>
+                    <button class="window-button close">X</button>
+                </div>
+            </div>
 
-                <img id="pantalones" src="">
+            <div class="menu-bar">
+                <span>File</span>
+                <span>Edit</span>
+                <span>View</span>
+                <span>Image</span>
+                <span>Colors</span>
+                <span>Help</span>
+            </div>
 
-                <img id="Zapatillas" src="">
+            <div class="paint-content">
 
-                <img id="comp" src="">
+                <div class="categories">
 
-                <img id="compiz" src="">
+                    <button class="category-button" id="Cara-button" onclick="showOptions('Cara')">Cara</button>
+                    <button class="category-button" id="cami-button" onclick="showOptions('cami')">Camiseta</button>
+                    <button class="category-button" id="pantalones-button" onclick="showOptions('pantalones')">Pantalones</button>
+                    <button class="category-button" id="Zapatillas-button" onclick="showOptions('Zapatillas')">Zapatillas</button>
+                    <button class="category-button" id="comp-button" onclick="showOptions('comp')">Complementos 1</button>
+                    <button class="category-button" id="compiz-button" onclick="showOptions('compiz')">Complementos 2</button>
+                    <button class="category-button" id="collar-button" onclick="showOptions('collar')">Collares</button>
 
-                <img id="collar" src="">
+                    <div class="body-colors">
+                        <button class="color-button green selected" id="color0" onclick="changeBody(0)"></button>
+                        <button class="color-button red" id="color1" onclick="changeBody(1)"></button>
+                        <button class="color-button gray" id="color2" onclick="changeBody(2)"></button>
+                    </div>
+
+                </div>
+
+                <div class="items">
+                    <button class="arrow-button arrow-up" onclick="scrollOptions(-1)">V</button>
+                    <div class="options" id="options"></div>
+                    <button class="arrow-button" onclick="scrollOptions(1)">V</button>
+                </div>
+
+                <div class="character-area">
+                    <div class="character-container">
+                        <img id="character" src="./img/body.png">
+                        <img id="pantalones" src="">
+                        <img id="cami" src="">
+                        <img id="Cara" src="">
+                        <img id="Zapatillas" src="">
+                        <img id="comp" src="">
+                        <img id="compiz" src="">
+                        <img id="collar" src="">
+                    </div>
+                </div>
 
             </div>
 
@@ -362,9 +470,14 @@
 
     </div>
 
+    <div class="taskbar">
+        <div class="taskbar-start"></div>
+        <div class="taskbar-clock"></div>
+    </div>
+
     <script>
 
-        const clothing = {
+        var clothing = {
 
             character: [
                 "./img/body.png",
@@ -422,244 +535,156 @@
                 "./img/coll2.png",
                 "./img/coll3.png"
             ]
-
         };
 
-        const selectedItems = {};
+        var selectedItems = {};
 
-        var backgroundColors = [
-            "rgb(255, 253, 244)",
-            "#FFDCE7",
-            "#DDF4FF",
-            "#E5F5D5",
-            "#FFF0C7",
-            "#E8DFFF"
-        ];
-
-        var backgroundNumber = 0;
-
-        function changeBackground() {
-
-            backgroundNumber++;
-
-            if (backgroundNumber >= backgroundColors.length) {
-                backgroundNumber = 0;
-            }
-
-            document.body.style.background =
-                backgroundColors[backgroundNumber];
-
-        }
+        var rowHeight = 99;
 
         function showOptions(category) {
 
-            var options =
-                document.getElementById(category + "-options");
+            var categoryButtons = document.querySelectorAll(".category-button");
 
-            if (options.classList.contains("active")) {
-
-                options.classList.remove("active");
-
-                return;
-
+            for (var i = 0; i < categoryButtons.length; i++) {
+                categoryButtons[i].classList.remove("active");
             }
 
-            var todos = document.querySelectorAll(".options");
+            document.getElementById(category + "-button").classList.add("active");
 
-            for (var i = 0; i < todos.length; i++) {
-
-                todos[i].classList.remove("active");
-
-            }
+            var options = document.getElementById("options");
 
             options.innerHTML = "";
+            options.scrollTop = 0;
 
-            for (var i = 0; i < clothing[category].length; i++) {
+            for (var j = 0; j < clothing[category].length; j++) {
+                options.appendChild(createOptionButton(category, clothing[category][j]));
+            }
+        }
 
-                var imagePath = clothing[category][i];
+        function createOptionButton(category, imagePath) {
 
-                var optionButton =
-                    document.createElement("button");
+            var button = document.createElement("button");
+            button.className = "option-button";
 
-                optionButton.className = "option-button";
+            var img = document.createElement("img");
+            img.src = imagePath;
+            button.appendChild(img);
 
-                var img =
-                    document.createElement("img");
-
-                img.src = imagePath;
-
-                optionButton.appendChild(img);
-
-                if (selectedItems[category] == imagePath) {
-
-                    optionButton.classList.add("selected");
-
-                }
-
-                optionButton.onclick = function() {
-
-                    var imagen =
-                        this.querySelector("img").src;
-
-                    changeClothing(category, imagen);
-
-                    var botones =
-                        options.querySelectorAll(".option-button");
-
-                    for (var j = 0; j < botones.length; j++) {
-
-                        botones[j].classList.remove("selected");
-
-                    }
-
-                    this.classList.add("selected");
-
-                };
-
-                options.appendChild(optionButton);
-
+            if (selectedItems[category] == imagePath) {
+                button.classList.add("selected");
             }
 
-            options.classList.add("active");
+            button.onclick = function () {
 
+                changeClothing(category, imagePath);
+
+                var allButtons = document.querySelectorAll(".option-button");
+
+                for (var i = 0; i < allButtons.length; i++) {
+                    allButtons[i].classList.remove("selected");
+                }
+
+                button.classList.add("selected");
+            };
+
+            return button;
+        }
+
+        function scrollOptions(direction) {
+
+            var options = document.getElementById("options");
+
+            options.scrollTop = options.scrollTop + direction * rowHeight;
+        }
+
+        function changeBody(number) {
+
+            for (var i = 0; i < 3; i++) {
+                document.getElementById("color" + i).classList.remove("selected");
+            }
+
+            document.getElementById("color" + number).classList.add("selected");
+
+            changeClothing("character", clothing.character[number]);
         }
 
         function changeClothing(category, image) {
 
             selectedItems[category] = image;
 
+            document.getElementById(category).src = image;
+
             if (category == "character") {
-
-                document.getElementById("character").src = image;
-
                 cambiarPantalon();
                 cambiarCara();
-
-            }
-
-            else {
-
-                document.getElementById(category).src = image;
-
             }
 
             if (category == "pantalones") {
-
                 cambiarPantalon();
-
             }
 
             if (category == "Cara") {
-
                 cambiarCara();
-
             }
-
         }
 
         function cambiarPantalon() {
 
-            var cuerpo =
-                document.getElementById("character");
-
-            var pantalon =
-                document.getElementById("pantalones");
+            var cuerpo = document.getElementById("character");
+            var pantalon = document.getElementById("pantalones");
 
             if (!selectedItems.pantalones) {
                 return;
             }
 
-            var pantalonActual =
-                selectedItems.pantalones;
+            var pantalonActual = selectedItems.pantalones;
 
             if (pantalonActual.includes("pant1.png")) {
 
                 if (cuerpo.src.includes("body2.png")) {
-
-                    pantalon.src =
-                        "./img/pant1_body2_1.svg";
-
+                    pantalon.src = "./img/pant1_body2_1.svg";
                 }
-
                 else if (cuerpo.src.includes("body3.png")) {
-
-                    pantalon.src =
-                        "./img/pant1_body2.svg";
-
+                    pantalon.src = "./img/pant1_body2.svg";
                 }
-
                 else {
-
-                    pantalon.src =
-                        "./img/pant1.png";
-
+                    pantalon.src = "./img/pant1.png";
                 }
-
             }
-
             else {
-
                 pantalon.src = pantalonActual;
-
             }
-
         }
 
         function cambiarCara() {
 
-            var cuerpo =
-                document.getElementById("character");
-
-            var cara =
-                document.getElementById("Cara");
+            var cuerpo = document.getElementById("character");
+            var cara = document.getElementById("Cara");
 
             if (!selectedItems.Cara) {
                 return;
             }
 
-            var caraActual =
-                selectedItems.Cara;
+            var caraActual = selectedItems.Cara;
 
             if (caraActual.includes("ojos3.png")) {
 
                 if (cuerpo.src.includes("body2.png")) {
-
-                    cara.src =
-                        "./img/ojos3_body2.svg";
-
+                    cara.src = "./img/ojos3_body2.svg";
                 }
-
                 else if (cuerpo.src.includes("body3.png")) {
-
-                    cara.src =
-                        "./img/ojos3_body3.svg";
-
+                    cara.src = "./img/ojos3_body3.svg";
                 }
-
                 else {
-
-                    cara.src =
-                        "./img/ojos3.png";
-
+                    cara.src = "./img/ojos3.png";
                 }
-
             }
-
             else {
-
                 cara.src = caraActual;
-
             }
-
         }
 
-        function actualizarRopa() {
-
-            cambiarPantalon();
-            cambiarCara();
-
-        }
-
+        selectedItems.character = clothing.character[0];
         showOptions("Cara");
 
     </script>
